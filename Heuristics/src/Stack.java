@@ -1,5 +1,6 @@
 
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,7 +35,13 @@ public class Stack implements Comparable{
     }
             
     public void stackBoxes(){
-        
+        int area;
+        TreeMap<Integer,Box> sortedBoxes = new TreeMap<>();
+        for(Box b: this.listOfBoxes.keySet()){
+            area = b.getDepth(this.listOfBoxes.get(b))* b.getWidth(this.listOfBoxes.get(b));
+            sortedBoxes.put(area, b);
+        }
+        Box[] SB = sortedBoxes.descendingMap().values().toArray(new Box[0]);
     }
     
     public Stack Breed(Stack mStack){
