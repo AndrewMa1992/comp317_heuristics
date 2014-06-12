@@ -1,5 +1,5 @@
 
-import java.util.TreeMap;
+import java.util.HashMap;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -11,14 +11,18 @@ import java.util.TreeMap;
  *
  * @author BrynClayton
  */
-public class Stack {
+public class Stack implements Comparable{
     
     int lastheight;
-    TreeMap<Box,Byte> listOfBoxes;
+    HashMap<Box,Byte> listOfBoxes;
     
-    public Stack(TreeMap <Box,Byte> map){
+    public Stack(HashMap <Box,Byte> map){
         this.listOfBoxes = map;
         this.lastheight = 0;
+    }
+    
+    public Integer getHeight(){
+        return lastheight;
     }
     
     private void findHeight(){
@@ -29,8 +33,40 @@ public class Stack {
         this.lastheight = height;
     }
             
-    public int stackBoxes(){
+    public void stackBoxes(){
         
+    }
+    
+    public Stack Breed(Stack mStack){
+        HashMap<Box,Byte> Boxes = new HashMap<>();
+        int boxn = 0;
+        for(Box b : this.listOfBoxes.keySet()){
+            if((boxn%2)==0)
+                Boxes.put(b, this.listOfBoxes.get(b));
+            else
+                Boxes.put(b, mStack.listOfBoxes.get(b));
+            boxn++;
+        }
+        
+        return new Stack(Boxes);
+    }
+    
+    
+    public void Mutate(float rate){
+        for(Box b : this.listOfBoxes.keySet()){
+            if(Heuristics.random.nextFloat()<rate){
+                this.listOfBoxes.put(b, (byte)Heuristics.random.nextInt(3));
+            }
+        }
+    }
+    
+    
+    
+    @Override
+    public int compareTo(Object OtherStack) throws ClassCastException {
+        if (!(OtherStack instanceof Stack))
+            throw new ClassCastException("Expected Stack Object."); 
+        return this.lastheight- ((Stack)OtherStack).getHeight();    
     }
             
 }
