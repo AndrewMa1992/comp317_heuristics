@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -24,11 +19,13 @@ public class Box {
     }
      
     public boolean checkifStacks(final byte thisrot, Box prev, final byte prot){
-        
-        if(prev.getWidth(prot) > this.getWidth(thisrot) && prev.getDepth(prot) > this.getDepth(thisrot)) 
+        //44x39 on 44x44
+        if(prev.getWidth(prot) > this.getWidth(thisrot) && prev.getDepth(prot) > this.getDepth(thisrot)){ 
             return true;
-        else if(prev.getWidth(prot) > this.getDepth(thisrot) && prev.getDepth(prot)> this.getWidth(thisrot))
+        }
+        if(prev.getWidth(prot) > this.getDepth(thisrot) && prev.getDepth(prot) > this.getWidth(thisrot)){
             return true;
+        }
         return false;
     }
     
