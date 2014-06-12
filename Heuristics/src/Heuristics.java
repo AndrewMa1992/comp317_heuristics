@@ -16,6 +16,7 @@ import java.util.List;
  * @author BrynClayton
  */
 public class Heuristics {
+
     static int NumOfGenes = 1000;
     static float NumOfGenes_breed = 0.50f; //for every stack
     static float NumOfGenes_mutaterate_others = 0.01f; //for every box
@@ -71,18 +72,21 @@ public class Heuristics {
         int StackstoBreed = (int) Math.floor((double)(NumOfGenes * NumOfGenes_breed));
         while(StackLimit>0){
             //System.err.println("Breeding: "+StackstoBreed+" Pairs");
-         
+
             Collections.sort(GenePool);
             Stack[] BS  = GenePool.toArray(new Stack[0]);
 
             //System.out.println("Max: "+BS[0].getHeight()+" Min: "+BS[BS.length-1].getHeight()+" Rem: "+StackLimit+" AL: "+GenePool.size());
+
             //BREED
+
             for(int x=0;x<(StackstoBreed);x+=2){
               //  System.err.println(x+" and "+(x+1)+" share Genetic material" );
                 Stack OffSpring = BS[x].Breed(BS[x+1]);
                 GenePool.add(OffSpring);
                 StackLimit--;
             }
+
             //Mutate
             for(int x=(StackstoBreed);x<BS.length;x++){
                 //System.err.println(x+" Mutated");

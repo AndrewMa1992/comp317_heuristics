@@ -43,6 +43,7 @@ public class Stack implements Comparable{
         }
         
         //Add First Box
+
         Box[] Barray = sortedBoxes.descendingMap().values().toArray(new Box[0]);
         StackedBoxes.add(Barray[0]);
         for(int x=1;x<Barray.length;x++){
@@ -104,7 +105,7 @@ public class Stack implements Comparable{
         for(int x=0;x<StackedBoxes.size();x++){
             Box b = StackedBoxes.get(x);
             byte rot = this.listOfBoxes.get(b);
-            str.append(b.getWidth(rot) +" "+ b.getDepth(rot)).append("\n");
+            str.append(b.getWidth(rot)).append(" ").append(b.getDepth(rot)).append("\n");
         }
         return str.toString();
     }
