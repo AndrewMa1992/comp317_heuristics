@@ -3,8 +3,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -16,15 +20,15 @@ import java.util.TreeSet;
  * @author BrynClayton
  */
 public class Heuristics {
-    static final int NumOfGenes = 10;
-    static final float NumOfGenes_breed = 0.25f; //for every stack
-    static final float NumOfGenes_mutate = 0.02f; //for every box
+    static final int NumOfGenes = 20;
+    static final float NumOfGenes_breed = 0.50f; //for every stack
+    static final float NumOfGenes_mutate = 0.05f; //for every box
     static  public SecureRandom random;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LinkedList<Box> boxes = new LinkedList<>();
+        List<Box> boxes = new ArrayList<>();
         random = new SecureRandom();
         try{
             
@@ -44,8 +48,10 @@ public class Heuristics {
             br.close();
         
         /****** Inital Generation *****/    
-        //Key is Hight of Stack
-        TreeSet<Stack> GenePool = new TreeSet<>();
+        //Sorted By Hight
+        long StackLimit = (long) Math.pow(3*boxes.size(),2);
+        System.err.println("StackLimit: "+StackLimit);
+        List<Stack> GenePool = new ArrayList<>(boxes.size()+(boxes.size()/2));
         
         
         for(int x=0;x<NumOfGenes;x++){
@@ -55,24 +61,37 @@ public class Heuristics {
                 boxMap.put(b, rot);
             }
             GenePool.add(new Stack(boxMap));
+            StackLimit--;
         }
         
         //Breed and Mutate GenePool - Go Darwin
-        while(true){
-            int StackstoBreed = (int) Math.floor((double)(NumOfGenes * NumOfGenes_breed));
+        int StackstoBreed = (int) Math.floor((double)(NumOfGenes * NumOfGenes_breed));
+        while(StackLimit>0){
+            //System.err.println("Breeding: "+StackstoBreed+" Pairs");
             //BREED
+            Collections.sort(GenePool);
             Stack[] BS = GenePool.toArray(new Stack[0]);
-            
+            System.out.println("Max: "+BS[0].getHeight()+" Min: "+BS[BS.length-1].getHeight()+" Rem: "+StackLimit);
             for(int x=0;x<(StackstoBreed*2);x+=2){
+              //  System.err.println(x+" and "+(x+1)+" share Genetic material" );
                 Stack OffSpring = BS[x].Breed(BS[x+1]);
                 GenePool.add(OffSpring);
+                StackLimit--;
             }
             for(int x=(StackstoBreed*2);x<BS.length;x++){
+                //System.err.println(x+" Mutated");
                 BS[x].Mutate(NumOfGenes_mutate);
+                StackLimit--;
             }
             
+            Collections.sort(GenePool);
+            GenePool = GenePool.subList(0, NumOfGenes);
+            //System.gc();
         }
         
+        Stack MaxStack = GenePool.get(0);
+        System.out.println(MaxStack.toString());
+        System.out.println("Height"+MaxStack.lastheight);
             
         }catch(IOException e){
            System.err.println(e.toString());
