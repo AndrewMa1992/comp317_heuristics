@@ -1,15 +1,12 @@
 
 
-                       *************************************************
-                       *                  COMP317-12A                  *
-                       *                  ASSIGNMENT 4                 *
-                       *         BRYN CLAYTON & TIMOTHY DAWSON         *
-                       *                     README                    *
-                       *************************************************
-
----------------------------------------------------------------------------------------------
-
-                We have used a Genetic Algorithm approach to this assignment.                          
+                    
+                                         COMP317-12A                  
+                                         ASSIGNMENT 4                 
+                                 BRYN CLAYTON & TIMOTHY DAWSON         
+                                            README                    
+                                            
+                We have sed a Genetic Algorithm approach to this assignment.                          
 
    For this algorithm, we first read in all of the boxes, and save them into an arraylist.   
    We then save this list of boxes (including random rotations) as stacks, which are then 
@@ -32,4 +29,3 @@
 
              At this point, the program terminates and the algorithm is complete.
 
---------------------------------------------------------------------------------------------
