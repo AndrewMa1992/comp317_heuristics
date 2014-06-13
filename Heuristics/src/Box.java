@@ -1,7 +1,7 @@
 
 /**
  *
- * @author BrynClayton
+ * @author BrynClayton and Tim Dawson
  */
 public class Box {
     static final byte rot_o = 0, rot_h = 1, rot_v = 2;

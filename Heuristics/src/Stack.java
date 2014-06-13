@@ -6,7 +6,7 @@ import java.util.TreeMap;
 
 /**
  *
- * @author BrynClayton
+ * @author BrynClayton and Tim Dawson
  */
 public class Stack implements Comparable{
     
@@ -43,7 +43,6 @@ public class Stack implements Comparable{
         }
         
         //Add First Box
-
         Box[] Barray = sortedBoxes.descendingMap().values().toArray(new Box[0]);
         StackedBoxes.add(Barray[0]);
         for(int x=1;x<Barray.length;x++){
@@ -102,10 +101,12 @@ public class Stack implements Comparable{
     @Override
     public String toString(){
         StringBuilder str = new StringBuilder();
+        int Height = 0;
         for(int x=0;x<StackedBoxes.size();x++){
             Box b = StackedBoxes.get(x);
             byte rot = this.listOfBoxes.get(b);
-            str.append(b.getWidth(rot)).append(" ").append(b.getDepth(rot)).append("\n");
+            Height+=b.getHeight(rot);
+            str.append(b.getWidth(rot) +" "+ b.getDepth(rot)+" "+Height).append("\n");
         }
         return str.toString();
     }
