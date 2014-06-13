@@ -65,6 +65,7 @@ public class Stack implements Comparable{
     public Stack Breed(Stack mStack){
         HashMap<Box,Byte> Boxes = new HashMap<>();
         int boxn = 0;
+        //zip the two stacks together
         for(Box b : this.listOfBoxes.keySet()){
             if((boxn%2)==0)
                 Boxes.put(b, this.listOfBoxes.get(b));
@@ -73,6 +74,7 @@ public class Stack implements Comparable{
             boxn++;
         }
         
+        //mutate small percentage of boxes in new stack
         for(Box b : Boxes.keySet()){
             if(Heuristics.random.nextFloat()<Heuristics.NumOfGenes_mutaterate_offspring){
                 //System.err.println("Mutating");
@@ -85,6 +87,7 @@ public class Stack implements Comparable{
     
     
     public void Mutate(float rate){
+        //give a small percent chance to change the rotation of the boxes
         boolean Mutation = false;
         for(Box b : this.listOfBoxes.keySet()){
             if(Heuristics.random.nextFloat()<rate){

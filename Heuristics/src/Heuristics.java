@@ -50,8 +50,8 @@ public class Heuristics {
         NumOfGenes_mutaterate_others=NumOfGenes_mutaterate_offspring*5;
         System.err.println("NumOfGenes: "+NumOfGenes+" Mut_offspring: "+NumOfGenes_mutaterate_offspring+" Mut_all: "+NumOfGenes_mutaterate_others);
         
-        /****** Inital Generation *****/    
-        //Sorted By Hight
+        /****** Initial Generation *****/    
+        //Sorted By Height
         long StackLimit = (long) Math.pow(3*boxes.size(),2);
         System.err.println("StackLimit: "+StackLimit);
         List<Stack> GenePool = new ArrayList<>(boxes.size()+(boxes.size()/2));
@@ -77,14 +77,14 @@ public class Heuristics {
             //Makes the Genepool easier to handle
             Stack[] BS  = GenePool.toArray(new Stack[0]);
             
-            //Breed - this breads new offspring
+            //Breed - this breeds new offspring
             for(int x=0;x<(StackstoBreed);x+=2){
               //  System.err.println(x+" and "+(x+1)+" share Genetic material" );
                 Stack OffSpring = BS[x].Breed(BS[x+1]);
                 GenePool.add(OffSpring);
                 StackLimit--;
             }
-            //Mutate - this mutates the othere genes in the genepool
+            //Mutate - this mutates the other genes in the genepool
             for(int x=(StackstoBreed);x<BS.length;x++){
                 //System.err.println(x+" Mutated");
                 BS[x].Mutate(NumOfGenes_mutaterate_others);
@@ -93,7 +93,7 @@ public class Heuristics {
 
             /* 
                 Cull the GenePool Back down to size 
-                - only the strong servive
+                - only the strong survive
             */
             
             //Keep only the best
